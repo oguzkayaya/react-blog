@@ -6,6 +6,7 @@ import { useState } from "react";
 import Footer from "./components/Footer";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Home from "./components/Home";
 
 function App() {
   const storedJwt = localStorage.getItem("token");
@@ -26,6 +27,7 @@ function App() {
           exact
           component={() => <Login setToken={setToken} token={token} />}
         ></Route>
+        <Route path="/" exact component={() => <Home token={token} />}></Route>
       </div>
     </BrowserRouter>
   );
