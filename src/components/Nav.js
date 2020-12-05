@@ -26,7 +26,7 @@ function Nav({ token, logout }) {
               </>
             ) : (
               <li className="nav-item active">
-                <Link to="/login" onClick={logout} className="nav-link">
+                <Link to="/" onClick={logout} className="nav-link">
                   Logout
                 </Link>
               </li>

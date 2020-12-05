@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Home from "./components/Home";
+import NewPost from "./components/NewPost";
 
 function App() {
   const storedJwt = localStorage.getItem("token");
@@ -28,6 +29,11 @@ function App() {
           component={() => <Login setToken={setToken} token={token} />}
         ></Route>
         <Route path="/" exact component={() => <Home token={token} />}></Route>
+        <Route
+          path="/posts/new"
+          exact
+          component={() => <NewPost token={token} />}
+        ></Route>
       </div>
     </BrowserRouter>
   );
