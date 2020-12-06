@@ -35,7 +35,7 @@ export default function Home({ token }) {
             </div>
           ) : (
             posts.map((post) => (
-              <div className="col-md-12">
+              <div className="col-md-12" key={post._id}>
                 <h4>
                   <span className="font-weight-bold ">{post.title}</span>{" "}
                   <span className="small text-muted">

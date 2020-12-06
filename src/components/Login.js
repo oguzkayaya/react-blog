@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
@@ -11,10 +11,15 @@ export default function Home({ setToken }) {
   const history = useHistory();
   const [error, setError] = useState("");
   const [succes, setSucces] = useState("");
+  const [requesting, setRequesting] = useState(false);
   const login = function (e) {
     e.preventDefault();
+    setRequesting(true);
     axios
-      .post(`${process.env.REACT_APP_URL}/login`, formData)
+      .post(`${process.env.REACT_APP_URL}/login`, {
+        email: formData.email.trim(),
+        password: formData.password.trim(),
+      })
       .then(async function (response) {
         setError("");
         setSucces("Login Succesfully");
@@ -27,6 +32,9 @@ export default function Home({ setToken }) {
       .catch(function (error) {
         setSucces("");
         setError(error.response.data.error);
+        setTimeout(() => {
+          setRequesting(false);
+        }, 1000);
       });
   };
   return (
@@ -69,6 +77,7 @@ export default function Home({ setToken }) {
                       type="submit"
                       className="btn btn-block"
                       onClick={login}
+                      disabled={requesting}
                     >
                       Login
                     </Button>
@@ -92,6 +101,9 @@ const Button = styled.button`
   &:active,
   &:visited {
     color: #fff;
+    background: var(--light-color);
+  }
+  &:disabled {
     background: var(--light-color);
   }
 `;

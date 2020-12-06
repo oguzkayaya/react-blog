@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
@@ -10,21 +10,33 @@ export default function NewPost({ token }) {
   });
   const [error, setError] = useState("");
   const [succes, setSucces] = useState("");
+  const [requesting, setRequesting] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    if (!token) history.push("/");
+    return () => {};
+  });
+
   const createPost = function (e) {
     e.preventDefault();
-    console.log(formData);
+    setRequesting(true);
     axios
-      .post(`${process.env.REACT_APP_URL}/posts`, formData, {
-        headers: {
-          "auth-token": token,
+      .post(
+        `${process.env.REACT_APP_URL}/posts`,
+        {
+          title: formData.title.trim(),
+          description: formData.description.trim(),
         },
-      })
+        {
+          headers: {
+            "auth-token": token,
+          },
+        }
+      )
       .then(function (response) {
         setError("");
         setSucces("Post Saved");
-        //Kayıt edilen postun sayfasına git
-        //ana sayfaya değil
         setTimeout(() => {
           history.push("/");
         }, 2000);
@@ -32,6 +44,9 @@ export default function NewPost({ token }) {
       .catch(function (error) {
         setSucces("");
         setError(error.response.data.error);
+        setTimeout(() => {
+          setRequesting(false);
+        }, 1000);
       });
   };
   return (
@@ -85,7 +100,12 @@ export default function NewPost({ token }) {
                     </div>
                   </div>
                   <div className="form-group">
-                    <Button type="submit" className="btn" onClick={createPost}>
+                    <Button
+                      type="submit"
+                      className="btn"
+                      onClick={createPost}
+                      disabled={requesting}
+                    >
                       Create
                     </Button>
                   </div>
@@ -108,6 +128,9 @@ const Button = styled.button`
   &:active,
   &:visited {
     color: #fff;
+    background: var(--light-color);
+  }
+  &:disabled {
     background: var(--light-color);
   }
 `;

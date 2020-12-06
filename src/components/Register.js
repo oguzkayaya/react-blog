@@ -11,11 +11,17 @@ export default function Home() {
   });
   const [error, setError] = useState("");
   const [succes, setSucces] = useState("");
+  const [requesting, setRequesting] = useState(false);
   const history = useHistory();
   const register = function (e) {
     e.preventDefault();
+    setRequesting(true);
     axios
-      .post(`${process.env.REACT_APP_URL}/register`, formData)
+      .post(`${process.env.REACT_APP_URL}/register`, {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        password: formData.email.trim(),
+      })
       .then(function (response) {
         setError("");
         setSucces("Registered");
@@ -26,6 +32,9 @@ export default function Home() {
       .catch(function (error) {
         setSucces("");
         setError(error.response.data.error);
+        setTimeout(() => {
+          setRequesting(false);
+        }, 1000);
       });
   };
   return (
@@ -82,6 +91,7 @@ export default function Home() {
                       type="submit"
                       className="btn btn-block"
                       onClick={register}
+                      disabled={requesting}
                     >
                       Register
                     </Button>
@@ -108,6 +118,9 @@ const Button = styled.button`
   &:active,
   &:visited {
     color: #fff;
+    background: var(--light-color);
+  }
+  &:disabled {
     background: var(--light-color);
   }
 `;
