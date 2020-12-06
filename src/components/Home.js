@@ -38,11 +38,9 @@ export default function Home({ token }) {
               <div className="col-md-12" key={post._id}>
                 <h4>
                   <span className="font-weight-bold ">{post.title}</span>{" "}
-                  <span className="small text-muted">
-                    {new Date(post.createDate.toString()).toLocaleString()}
-                  </span>{" "}
                   <div className="small text-muted">
-                    {post.userId}(user name)
+                    {post.userId.name} -{" "}
+                    {new Date(post.createDate.toString()).toLocaleString()}
                   </div>
                 </h4>
                 <br />
