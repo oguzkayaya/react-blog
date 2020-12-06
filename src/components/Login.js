@@ -18,7 +18,7 @@ export default function Home({ setToken }) {
     axios
       .post(`${process.env.REACT_APP_URL}/login`, {
         email: formData.email.trim(),
-        password: formData.password.trim(),
+        password: formData.password,
       })
       .then(async function (response) {
         setError("");

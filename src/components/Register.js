@@ -20,7 +20,7 @@ export default function Home() {
       .post(`${process.env.REACT_APP_URL}/register`, {
         name: formData.name.trim(),
         email: formData.email.trim(),
-        password: formData.email.trim(),
+        password: formData.password,
       })
       .then(function (response) {
         setError("");
