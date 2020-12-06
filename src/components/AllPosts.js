@@ -2,12 +2,12 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-export default function Home({ token }) {
+export default function AllPosts({ token }) {
   const [posts, setPosts] = useState([]);
   const [loading, setloading] = useState(true);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_URL}/posts`).then((res) => {
+    axios.get(`${process.env.REACT_APP_URL}/posts/all`).then((res) => {
       setloading(false);
       setPosts(res.data.posts);
     });
@@ -15,10 +15,10 @@ export default function Home({ token }) {
   return (
     <div className="container mt-3">
       <div className="row">
-        <div className="col-md-9">
+        <div className="col-md-12">
           <div className="col-md-12">
             <h1 className="font-weight-bold">
-              <span>Lastest Posts </span>
+              <span>All Posts </span>
               <span className="small text-muted float-right">
                 {token ? (
                   <Link className="inline-block list-unstyled" to="/posts/new">
@@ -47,27 +47,6 @@ export default function Home({ token }) {
               </div>
             ))
           )}
-          <div>
-            <Link className="list-unstyled" to="/posts/all">
-              <li>Show all posts</li>
-            </Link>
-          </div>
-        </div>
-        {/* replace with sidebar component */}
-        <div
-          className="col-md-3 p-3"
-          style={{
-            background: "#dacece",
-            color: "#fff",
-          }}
-        >
-          SIDE BAR
-          <br />
-          SEARCH
-          <br />
-          CATEGORIES
-          <br />
-          ARCHIVE, YEARS, MONTHS
         </div>
       </div>
     </div>

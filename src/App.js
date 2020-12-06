@@ -8,6 +8,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import NewPost from "./components/NewPost";
+import AllPosts from "./components/AllPosts";
 
 function App() {
   const storedJwt = localStorage.getItem("token");
@@ -29,6 +30,7 @@ function App() {
           component={() => <Login setToken={setToken} token={token} />}
         ></Route>
         <Route path="/" exact component={() => <Home token={token} />}></Route>
+        <Route path="/posts/all" exact component={() => <AllPosts token={token} />}></Route>
         <Route
           path="/posts/new"
           exact
