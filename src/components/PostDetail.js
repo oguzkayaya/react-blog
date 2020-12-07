@@ -11,7 +11,6 @@ export default function PostDetail({ match, token }) {
       .get(`${process.env.REACT_APP_URL}/posts/${match.params.postId}`)
       .then((response) => {
         setPost(response.data.post);
-        console.log(response.data.post);
       })
       .catch((error) => {
         setError(error.response.data.error);

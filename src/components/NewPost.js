@@ -38,7 +38,7 @@ export default function NewPost({ token }) {
         setError("");
         setSucces("Post Saved");
         setTimeout(() => {
-          history.push("/");
+          history.push(`${response.data.savedPost._id}`);
         }, 2000);
       })
       .catch(function (error) {
