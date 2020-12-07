@@ -37,7 +37,14 @@ export default function Home({ token }) {
             posts.map((post) => (
               <div className="col-md-12" key={post._id}>
                 <h4>
-                  <span className="font-weight-bold ">{post.title}</span>{" "}
+                  <div className="font-weight-bold ">
+                    <Link
+                      to={`posts/${post._id}`}
+                      style={{ color: "#212529" }}
+                    >
+                      {post.title}
+                    </Link>
+                  </div>
                   <div className="small text-muted">
                     {post.userId.name} -{" "}
                     {new Date(post.createDate.toString()).toLocaleString()}
