@@ -15,7 +15,7 @@ export default function PostDetail({ match, token }) {
       .catch((error) => {
         setError(error.response.data.error);
       });
-  });
+  }, []);
   return (
     <>
       <div className="m-3">
@@ -64,7 +64,12 @@ export default function PostDetail({ match, token }) {
                       {post.title}
                     </div>
                     <hr style={{ margin: "0" }} />
-                    <p style={{ padding: "5px 0" }}>{post.description}</p>
+                    <div
+                      style={{ padding: "5px 0" }}
+                      dangerouslySetInnerHTML={{
+                        __html: post.description,
+                      }}
+                    ></div>
                   </div>
                 )}
               </td>
@@ -122,9 +127,12 @@ export default function PostDetail({ match, token }) {
                 {error ? (
                   error
                 ) : (
-                  <div>
-                    <p style={{ padding: "5px 0" }}>{post.description}</p>
-                  </div>
+                  <div
+                      style={{ padding: "5px 0" }}
+                      dangerouslySetInnerHTML={{
+                        __html: post.description,
+                      }}
+                    ></div>
                 )}
               </td>
             </tr>
@@ -164,9 +172,12 @@ export default function PostDetail({ match, token }) {
                 {error ? (
                   error
                 ) : (
-                  <div>
-                    <p style={{ padding: "5px 0" }}>{post.description}</p>
-                  </div>
+                  <div
+                      style={{ padding: "5px 0" }}
+                      dangerouslySetInnerHTML={{
+                        __html: post.description,
+                      }}
+                    ></div>
                 )}
               </td>
             </tr>
@@ -206,9 +217,12 @@ export default function PostDetail({ match, token }) {
                 {error ? (
                   error
                 ) : (
-                  <div>
-                    <p style={{ padding: "5px 0" }}>{post.description}</p>
-                  </div>
+                  <div
+                      style={{ padding: "5px 0" }}
+                      dangerouslySetInnerHTML={{
+                        __html: post.description,
+                      }}
+                    ></div>
                 )}
               </td>
             </tr>
@@ -248,9 +262,12 @@ export default function PostDetail({ match, token }) {
                 {error ? (
                   error
                 ) : (
-                  <div>
-                    <p style={{ padding: "5px 0" }}>{post.description}</p>
-                  </div>
+                  <div
+                      style={{ padding: "5px 0" }}
+                      dangerouslySetInnerHTML={{
+                        __html: post.description,
+                      }}
+                    ></div>
                 )}
               </td>
             </tr>
@@ -290,9 +307,12 @@ export default function PostDetail({ match, token }) {
                 {error ? (
                   error
                 ) : (
-                  <div>
-                    <p style={{ padding: "5px 0" }}>{post.description}</p>
-                  </div>
+                  <div
+                      style={{ padding: "5px 0" }}
+                      dangerouslySetInnerHTML={{
+                        __html: post.description,
+                      }}
+                    ></div>
                 )}
               </td>
             </tr>

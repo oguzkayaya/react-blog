@@ -2,12 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import EditorContainer from "./EditorContainer";
 
 export default function NewPost({ token }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
   });
+  const [descriptionMarkup, setDescriptionMarkup] = useState("");
   const [error, setError] = useState("");
   const [succes, setSucces] = useState("");
   const [requesting, setRequesting] = useState(false);
@@ -26,7 +28,7 @@ export default function NewPost({ token }) {
         `${process.env.REACT_APP_URL}/posts`,
         {
           title: formData.title.trim(),
-          description: formData.description.trim(),
+          description: descriptionMarkup,
         },
         {
           headers: {
@@ -51,78 +53,60 @@ export default function NewPost({ token }) {
   };
   return (
     <div>
-      <div className="container mt-4 p-0">
-        <div className="row">
-          <div className="col-md-12">
-            <div className="card">
-              <header className="card-header">
-                <div
-                  className="card-title"
-                  style={{ fontSize: "32px", margin: "0", padding: "0" }}
-                >
-                  New Post
-                </div>
-              </header>
-              <article className="card-body">
-                <form>
-                  <div className="form-group">
-                    <div className="row">
-                      <div className="col-md-2 p-2">
-                        <label>Title</label>
-                      </div>
-                      <div className="col-md-10">
-                        <input
-                          type="text"
-                          name="title"
-                          className="form-control"
-                          value={formData.title}
-                          onChange={(e) =>
-                            setFormData({ ...formData, title: e.target.value })
-                          }
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <div className="row">
-                      <div className="col-md-2 p-2">
-                        <label>Description</label>
-                      </div>
-                      <div className="col-md-10">
-                        <textarea
-                          style={{ resize: "none" }}
-                          className="form-control"
-                          name="description"
-                          value={formData.description}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              description: e.target.value,
-                            })
-                          }
-                          rows="14"
-                        ></textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <Button
-                      type="submit"
-                      className="btn"
-                      onClick={createPost}
-                      disabled={requesting}
-                    >
-                      Create
-                    </Button>
-                  </div>
-                </form>
-                <div style={{ color: "red" }}>{error}</div>
-                <div style={{ color: "green" }}>{succes}</div>
-              </article>
+      <header className="card-header">
+        <div
+          className="card-title"
+          style={{ fontSize: "32px", margin: "0", padding: "0" }}
+        >
+          New Post
+        </div>
+      </header>
+      <article className="card-body">
+        <form>
+          <div className="form-group">
+            <div className="row">
+              <div className="col-md-2 p-2">
+                <label>Title</label>
+              </div>
+              <div className="col-md-10">
+                <input
+                  type="text"
+                  name="title"
+                  className="form-control"
+                  value={formData.title}
+                  onChange={(e) =>
+                    setFormData({ ...formData, title: e.target.value })
+                  }
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+          <div className="form-group">
+            <div className="row">
+              <div className="col-md-2 p-2">
+                <label>Description</label>
+              </div>
+              <div className="col-md-10">
+                <EditorContainer
+                  setDescriptionMarkup={setDescriptionMarkup}
+                ></EditorContainer>
+              </div>
+            </div>
+          </div>
+          <div className="form-group">
+            <Button
+              type="submit"
+              className="btn"
+              onClick={createPost}
+              disabled={requesting}
+            >
+              Create
+            </Button>
+          </div>
+        </form>
+        <div style={{ color: "red" }}>{error}</div>
+        <div style={{ color: "green" }}>{succes}</div>
+      </article>
     </div>
   );
 }
