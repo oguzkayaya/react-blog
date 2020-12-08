@@ -44,7 +44,12 @@ export default function Home() {
           <div className="col-md-6">
             <div className="card">
               <header className="card-header">
-                <h4 className="card-title mt-2">Sign up</h4>
+                <div
+                  className="card-title mt-2"
+                  style={{ fontSize: "32px", fontWeight: "600" }}
+                >
+                  Sign up
+                </div>
               </header>
               <article className="card-body">
                 <form>

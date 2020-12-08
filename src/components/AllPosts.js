@@ -15,34 +15,51 @@ export default function AllPosts({ token }) {
   return (
     <div className="container mt-3">
       <div className="row">
-        <div className="col-md-12">
+        <div className="col-md-8 offset-md-1">
           <div className="col-md-12">
-            <h1 className="font-weight-bold">
-              <span>All Posts </span>
-              <span className="small text-muted float-right">
-                {token ? (
-                  <Link className="inline-block list-unstyled" to="/posts/new">
-                    <li>New Post</li>
-                  </Link>
-                ) : null}
-              </span>
-            </h1>
+            <span
+              style={{
+                fontSize: "32px",
+                fontWeight: "600",
+              }}
+            >
+              All Posts{" "}
+            </span>
+            <span>
+              {token ? (
+                <Link
+                  to="/posts/new"
+                  style={{
+                    padding: "15px",
+                    fontWeight: "600",
+                    float: "right",
+                    display: "inline-block",
+                    listStyle: "none",
+                  }}
+                >
+                  <li>New Post</li>
+                </Link>
+              ) : null}
+            </span>
           </div>
           <hr />
           {loading ? (
             <div className="col-md-12">
-              <h2>Loading</h2>
+              <h2>Loading...</h2>
             </div>
           ) : (
             posts.map((post) => (
               <div className="col-md-12" key={post._id}>
-                <h4>
-                  <span className="font-weight-bold ">{post.title}</span>{" "}
-                  <div className="small text-muted">
-                    {post.userId.name} -{" "}
-                    {new Date(post.createDate.toString()).toLocaleString()}
-                  </div>
-                </h4>
+                <Link
+                  to={`/posts/${post._id}`}
+                  style={{ color: "#212529", fontWeight: "600" }}
+                >
+                  {post.title}
+                </Link>
+                <div className="text-muted">
+                  by {post.userId.name} -{" "}
+                  {new Date(post.createDate.toString()).toLocaleString()}
+                </div>
                 <br />
               </div>
             ))

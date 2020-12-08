@@ -15,51 +15,71 @@ export default function PostDetail({ match, token }) {
       .catch((error) => {
         setError(error.response.data.error);
       });
-  }, []);
+  });
   return (
     <>
       <div className="m-3">
         <table style={{ width: "100%" }}>
           <tbody>
             <tr>
-              <td width="150" rowSpan="3" className="text-center">
+              <td
+                width="150"
+                rowSpan="3"
+                className="text-center"
+                style={{ verticalAlign: "top" }}
+              >
                 <img
                   src={avatar}
-                  className="card-img-top px-4 py-1"
+                  className="card-img-top px-3 pt-3"
                   alt="default-avatar"
                 />
-                <h5 className="card-title font-weight-bold">
+                <div className="card-title font-weight-bold">
                   {post.userId.name || null}
-                </h5>
+                </div>
               </td>
               <td
                 className="px-2"
                 style={{
                   background: "#979797",
-                  color: "#e2e2e2",
+                  color: "#fff",
+                  height: "10px",
                 }}
               >
                 {new Date(post.createDate.toString()).toLocaleString()}
               </td>
             </tr>
             <tr>
-              <td className="p-2" style={{ verticalAlign: "top" }}>
+              <td className="px-2">
                 {error ? (
                   error
                 ) : (
                   <div>
-                    <h4 className="font-weight-bold">{post.title}</h4>
-                    <hr />
-                    <p>{post.description}</p>
+                    <div
+                      style={{
+                        fontSize: "32px",
+                        fontWeight: "600",
+                        padding: "5px 0",
+                      }}
+                    >
+                      {post.title}
+                    </div>
+                    <hr style={{ margin: "0" }} />
+                    <p style={{ padding: "5px 0" }}>{post.description}</p>
                   </div>
                 )}
               </td>
             </tr>
             <tr>
-              <td className="px-2 text-right" style={{ verticalAlign: "top" }}>
-                <Button type="submit" className="btn">
-                  Reply
-                </Button>
+              <td>
+                <div style={{ textAlign: "right" }}>
+                  <Button
+                    type="submit"
+                    className="btn"
+                    style={{ width: "200px" }}
+                  >
+                    Reply
+                  </Button>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -71,81 +91,210 @@ export default function PostDetail({ match, token }) {
         <table style={{ width: "100%" }}>
           <tbody>
             <tr>
-              <td width="125" rowSpan="3" className="text-center">
+              <td
+                width="125"
+                rowSpan="3"
+                className="text-center"
+                style={{ verticalAlign: "top" }}
+              >
                 <img
                   src={avatar}
-                  className="card-img-top px-4 py-1"
+                  className="card-img-top px-3 pt-3"
                   alt="default-avatar"
                 />
-                <h5 className="card-title font-weight-bold">
+                <div className="card-title font-weight-bold">
                   {post.userId.name || null}
-                </h5>
+                </div>
               </td>
               <td
                 className="px-2"
                 style={{
                   background: "#979797",
-                  color: "#e2e2e2",
+                  color: "#fff",
+                  height: "10px",
                 }}
               >
                 {new Date(post.createDate.toString()).toLocaleString()}
               </td>
             </tr>
             <tr>
-              <td className="p-2" style={{ verticalAlign: "top" }}>
+              <td className="px-2" style={{ verticalAlign: "top" }}>
                 {error ? (
                   error
                 ) : (
                   <div>
-                    <p>{post.description}</p>
+                    <p style={{ padding: "5px 0" }}>{post.description}</p>
                   </div>
                 )}
               </td>
-            </tr>
-            <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
             </tr>
           </tbody>
         </table>
-        <hr />
         <table style={{ width: "100%" }}>
           <tbody>
             <tr>
-              <td width="125" rowSpan="3" className="text-center">
+              <td
+                width="125"
+                rowSpan="3"
+                className="text-center"
+                style={{ verticalAlign: "top" }}
+              >
                 <img
                   src={avatar}
-                  className="card-img-top px-4 py-1"
+                  className="card-img-top px-3 pt-3"
                   alt="default-avatar"
                 />
-                <h5 className="card-title font-weight-bold">
+                <div className="card-title font-weight-bold">
                   {post.userId.name || null}
-                </h5>
+                </div>
               </td>
               <td
                 className="px-2"
                 style={{
                   background: "#979797",
-                  color: "#e2e2e2",
+                  color: "#fff",
+                  height: "10px",
                 }}
               >
                 {new Date(post.createDate.toString()).toLocaleString()}
               </td>
             </tr>
             <tr>
-              <td className="p-2" style={{ verticalAlign: "top" }}>
+              <td className="px-2" style={{ verticalAlign: "top" }}>
                 {error ? (
                   error
                 ) : (
                   <div>
-                    <p>{post.description}</p>
+                    <p style={{ padding: "5px 0" }}>{post.description}</p>
                   </div>
                 )}
               </td>
             </tr>
+          </tbody>
+        </table>
+        <table style={{ width: "100%" }}>
+          <tbody>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td
+                width="125"
+                rowSpan="3"
+                className="text-center"
+                style={{ verticalAlign: "top" }}
+              >
+                <img
+                  src={avatar}
+                  className="card-img-top px-3 pt-3"
+                  alt="default-avatar"
+                />
+                <div className="card-title font-weight-bold">
+                  {post.userId.name || null}
+                </div>
+              </td>
+              <td
+                className="px-2"
+                style={{
+                  background: "#979797",
+                  color: "#fff",
+                  height: "10px",
+                }}
+              >
+                {new Date(post.createDate.toString()).toLocaleString()}
+              </td>
+            </tr>
+            <tr>
+              <td className="px-2" style={{ verticalAlign: "top" }}>
+                {error ? (
+                  error
+                ) : (
+                  <div>
+                    <p style={{ padding: "5px 0" }}>{post.description}</p>
+                  </div>
+                )}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table style={{ width: "100%" }}>
+          <tbody>
+            <tr>
+              <td
+                width="125"
+                rowSpan="3"
+                className="text-center"
+                style={{ verticalAlign: "top" }}
+              >
+                <img
+                  src={avatar}
+                  className="card-img-top px-3 pt-3"
+                  alt="default-avatar"
+                />
+                <div className="card-title font-weight-bold">
+                  {post.userId.name || null}
+                </div>
+              </td>
+              <td
+                className="px-2"
+                style={{
+                  background: "#979797",
+                  color: "#fff",
+                  height: "10px",
+                }}
+              >
+                {new Date(post.createDate.toString()).toLocaleString()}
+              </td>
+            </tr>
+            <tr>
+              <td className="px-2" style={{ verticalAlign: "top" }}>
+                {error ? (
+                  error
+                ) : (
+                  <div>
+                    <p style={{ padding: "5px 0" }}>{post.description}</p>
+                  </div>
+                )}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table style={{ width: "100%" }}>
+          <tbody>
+            <tr>
+              <td
+                width="125"
+                rowSpan="3"
+                className="text-center"
+                style={{ verticalAlign: "top" }}
+              >
+                <img
+                  src={avatar}
+                  className="card-img-top px-3 pt-3"
+                  alt="default-avatar"
+                />
+                <div className="card-title font-weight-bold">
+                  {post.userId.name || null}
+                </div>
+              </td>
+              <td
+                className="px-2"
+                style={{
+                  background: "#979797",
+                  color: "#fff",
+                  height: "10px",
+                }}
+              >
+                {new Date(post.createDate.toString()).toLocaleString()}
+              </td>
+            </tr>
+            <tr>
+              <td className="px-2" style={{ verticalAlign: "top" }}>
+                {error ? (
+                  error
+                ) : (
+                  <div>
+                    <p style={{ padding: "5px 0" }}>{post.description}</p>
+                  </div>
+                )}
+              </td>
             </tr>
           </tbody>
         </table>

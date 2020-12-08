@@ -56,16 +56,21 @@ export default function NewPost({ token }) {
           <div className="col-md-12">
             <div className="card">
               <header className="card-header">
-                <h4 className="card-title mt-2">New Post Page</h4>
+                <div
+                  className="card-title"
+                  style={{ fontSize: "32px", margin: "0", padding: "0" }}
+                >
+                  New Post
+                </div>
               </header>
               <article className="card-body">
                 <form>
                   <div className="form-group">
                     <div className="row">
-                      <div className="col-md-2">
+                      <div className="col-md-2 p-2">
                         <label>Title</label>
                       </div>
-                      <div className="col-md-10 p-0 m-0">
+                      <div className="col-md-10">
                         <input
                           type="text"
                           name="title"
@@ -80,11 +85,12 @@ export default function NewPost({ token }) {
                   </div>
                   <div className="form-group">
                     <div className="row">
-                      <div className="col-md-2">
+                      <div className="col-md-2 p-2">
                         <label>Description</label>
                       </div>
-                      <div className="col-md-10 p-0 m-0">
+                      <div className="col-md-10">
                         <textarea
+                          style={{ resize: "none" }}
                           className="form-control"
                           name="description"
                           value={formData.description}
@@ -94,7 +100,7 @@ export default function NewPost({ token }) {
                               description: e.target.value,
                             })
                           }
-                          rows="12"
+                          rows="14"
                         ></textarea>
                       </div>
                     </div>

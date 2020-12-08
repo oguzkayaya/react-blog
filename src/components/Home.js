@@ -17,45 +17,62 @@ export default function Home({ token }) {
       <div className="row">
         <div className="col-md-9">
           <div className="col-md-12">
-            <h1 className="font-weight-bold">
-              <span>Lastest Posts </span>
-              <span className="small text-muted float-right">
-                {token ? (
-                  <Link className="inline-block list-unstyled" to="/posts/new">
-                    <li>New Post</li>
-                  </Link>
-                ) : null}
-              </span>
-            </h1>
+            <span
+              style={{
+                fontSize: "32px",
+                fontWeight: "600",
+              }}
+            >
+              Lastest Posts
+            </span>
+            <span>
+              {token ? (
+                <Link
+                  to="/posts/new"
+                  style={{
+                    padding: "15px",
+                    fontWeight: "600",
+                    float: "right",
+                    display: "inline-block",
+                    listStyle: "none",
+                  }}
+                >
+                  <li>New Post</li>
+                </Link>
+              ) : null}
+            </span>
           </div>
           <hr />
           {loading ? (
             <div className="col-md-12">
-              <h2>Loading</h2>
+              <div>Loading...</div>
             </div>
           ) : (
             posts.map((post) => (
               <div className="col-md-12" key={post._id}>
-                <h4>
-                  <div className="font-weight-bold ">
-                    <Link
-                      to={`posts/${post._id}`}
-                      style={{ color: "#212529" }}
-                    >
-                      {post.title}
-                    </Link>
-                  </div>
-                  <div className="small text-muted">
-                    {post.userId.name} -{" "}
-                    {new Date(post.createDate.toString()).toLocaleString()}
-                  </div>
-                </h4>
+                <Link
+                  to={`posts/${post._id}`}
+                  style={{ color: "#212529", fontWeight: "600" }}
+                >
+                  {post.title}
+                </Link>
+                <div className="text-muted">
+                  by {post.userId.name} -{" "}
+                  {new Date(post.createDate.toString()).toLocaleString()}
+                </div>
                 <br />
               </div>
             ))
           )}
           <div>
-            <Link className="list-unstyled" to="/posts/all">
+            <Link
+              to="/posts/all"
+              style={{
+                fontWeight: "600",
+                display: "inline-block",
+                listStyle: "none",
+              }}
+            >
               <li>Show all posts</li>
             </Link>
           </div>
@@ -63,10 +80,7 @@ export default function Home({ token }) {
         {/* replace with sidebar component */}
         <div
           className="col-md-3 p-3"
-          style={{
-            background: "#dacece",
-            color: "#fff",
-          }}
+          style={{ background: "#979797", color: "#fff" }}
         >
           SIDE BAR
           <br />
