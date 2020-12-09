@@ -2,10 +2,12 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import avatar from "../default-avatar.jpg";
 import styled from "styled-components";
+import NewComment from "./NewComment";
 
 export default function PostDetail({ match, token }) {
   const [error, setError] = useState(null);
   const [post, setPost] = useState({ userId: {}, createDate: "" });
+  const [isCommenting, setCommenting] = useState(false);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/posts/${match.params.postId}`)
@@ -15,7 +17,7 @@ export default function PostDetail({ match, token }) {
       .catch((error) => {
         setError(error.response.data.error);
       });
-  }, []);
+  }, [isCommenting]);
   return (
     <>
       <div className="m-3">
@@ -30,8 +32,9 @@ export default function PostDetail({ match, token }) {
               >
                 <img
                   src={avatar}
-                  className="card-img-top px-3 pt-3"
+                  className="card-img-top"
                   alt="default-avatar"
+                  style={{ height: "auto", width: "70%" }}
                 />
                 <div className="card-title font-weight-bold">
                   {post.userId.name || null}
@@ -78,9 +81,11 @@ export default function PostDetail({ match, token }) {
               <td>
                 <div style={{ textAlign: "right" }}>
                   <Button
-                    type="submit"
                     className="btn"
                     style={{ width: "200px" }}
+                    onClick={() => {
+                      setCommenting(true);
+                    }}
                   >
                     Reply
                   </Button>
@@ -89,10 +94,22 @@ export default function PostDetail({ match, token }) {
             </tr>
           </tbody>
         </table>
+        {isCommenting ? (
+          <>
+            <hr />
+            <div className="offset-md-1">
+              <NewComment
+                setCommenting={setCommenting}
+                postId={match.params.postId}
+                token={token}
+              ></NewComment>
+            </div>
+          </>
+        ) : null}
       </div>
       <hr />
       {/* comment */}
-      <div className="my-3 col-md-11 offset-1">
+      <div className="my-3 col-md-11 offset-md-1">
         <table style={{ width: "100%" }}>
           <tbody>
             <tr>
@@ -104,8 +121,9 @@ export default function PostDetail({ match, token }) {
               >
                 <img
                   src={avatar}
-                  className="card-img-top px-3 pt-3"
+                  className="card-img-top"
                   alt="default-avatar"
+                  style={{ height: "auto", width: "70%" }}
                 />
                 <div className="card-title font-weight-bold">
                   {post.userId.name || null}
@@ -128,11 +146,11 @@ export default function PostDetail({ match, token }) {
                   error
                 ) : (
                   <div
-                      style={{ padding: "5px 0" }}
-                      dangerouslySetInnerHTML={{
-                        __html: post.description,
-                      }}
-                    ></div>
+                    style={{ padding: "5px 0" }}
+                    dangerouslySetInnerHTML={{
+                      __html: post.description,
+                    }}
+                  ></div>
                 )}
               </td>
             </tr>
@@ -173,11 +191,11 @@ export default function PostDetail({ match, token }) {
                   error
                 ) : (
                   <div
-                      style={{ padding: "5px 0" }}
-                      dangerouslySetInnerHTML={{
-                        __html: post.description,
-                      }}
-                    ></div>
+                    style={{ padding: "5px 0" }}
+                    dangerouslySetInnerHTML={{
+                      __html: post.description,
+                    }}
+                  ></div>
                 )}
               </td>
             </tr>
@@ -218,11 +236,11 @@ export default function PostDetail({ match, token }) {
                   error
                 ) : (
                   <div
-                      style={{ padding: "5px 0" }}
-                      dangerouslySetInnerHTML={{
-                        __html: post.description,
-                      }}
-                    ></div>
+                    style={{ padding: "5px 0" }}
+                    dangerouslySetInnerHTML={{
+                      __html: post.description,
+                    }}
+                  ></div>
                 )}
               </td>
             </tr>
@@ -263,11 +281,11 @@ export default function PostDetail({ match, token }) {
                   error
                 ) : (
                   <div
-                      style={{ padding: "5px 0" }}
-                      dangerouslySetInnerHTML={{
-                        __html: post.description,
-                      }}
-                    ></div>
+                    style={{ padding: "5px 0" }}
+                    dangerouslySetInnerHTML={{
+                      __html: post.description,
+                    }}
+                  ></div>
                 )}
               </td>
             </tr>
@@ -308,11 +326,11 @@ export default function PostDetail({ match, token }) {
                   error
                 ) : (
                   <div
-                      style={{ padding: "5px 0" }}
-                      dangerouslySetInnerHTML={{
-                        __html: post.description,
-                      }}
-                    ></div>
+                    style={{ padding: "5px 0" }}
+                    dangerouslySetInnerHTML={{
+                      __html: post.description,
+                    }}
+                  ></div>
                 )}
               </td>
             </tr>

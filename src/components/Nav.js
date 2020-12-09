@@ -5,7 +5,7 @@ import styled from "styled-components";
 function Nav({ token, logout }) {
   return (
     <NavbarContainer>
-      <nav className="navbar navbar-expand navbar-light ">
+      <nav className="navbar navbar-expand ">
         <Link className="navbar-brand" to="/">
           Home
         </Link>
