@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import styled from "styled-components";
+import Button from "./Button";
 import EditorContainer from "./EditorContainer";
 
 export default function NewPost({ token }) {
@@ -110,17 +110,3 @@ export default function NewPost({ token }) {
     </div>
   );
 }
-
-const Button = styled.button`
-  color: #fff;
-  background: var(--dark-color);
-  &:hover,
-  &:active,
-  &:visited {
-    color: #fff;
-    background: var(--light-color);
-  }
-  &:disabled {
-    background: var(--light-color);
-  }
-`;

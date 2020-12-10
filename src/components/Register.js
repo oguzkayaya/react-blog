@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import styled from "styled-components";
+import Button from "./Button";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -115,17 +115,3 @@ export default function Home() {
     </>
   );
 }
-
-const Button = styled.button`
-  color: #fff;
-  background: var(--dark-color);
-  &:hover,
-  &:active,
-  &:visited {
-    color: #fff;
-    background: var(--light-color);
-  }
-  &:disabled {
-    background: var(--light-color);
-  }
-`;

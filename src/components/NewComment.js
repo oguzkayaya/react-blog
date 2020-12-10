@@ -1,15 +1,18 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
+import Button from "./Button";
 import EditorContainer from "./EditorContainer";
 
-export default function Comment({ token, postId, setCommenting }) {
-  const [description, setDescription] = useState("");
+export default function Comment({
+  token,
+  postId,
+  setCommenting,
+  updateComments,
+}) {
+  const [description, setDescription] = useState(null);
   const [requesting, setRequesting] = useState(false);
   const [error, setError] = useState("");
   const [succes, setSucces] = useState("");
-  const history = useHistory();
   const saveComment = function (e) {
     e.preventDefault();
     setRequesting(true);
@@ -30,6 +33,7 @@ export default function Comment({ token, postId, setCommenting }) {
         setError("");
         setSucces("Comment Saved");
         setTimeout(() => {
+          updateComments();
           setCommenting(false);
         }, 1000);
       })
@@ -62,17 +66,3 @@ export default function Comment({ token, postId, setCommenting }) {
     </div>
   );
 }
-
-const Button = styled.button`
-  color: #fff;
-  background: var(--dark-color);
-  &:hover,
-  &:active,
-  &:visited {
-    color: #fff;
-    background: var(--light-color);
-  }
-  &:disabled {
-    background: var(--light-color);
-  }
-`;

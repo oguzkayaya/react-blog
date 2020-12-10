@@ -1,13 +1,15 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import avatar from "../default-avatar.jpg";
-import styled from "styled-components";
 import NewComment from "./NewComment";
+import CommentList from "./CommentList";
+import Button from "./Button";
 
 export default function PostDetail({ match, token }) {
   const [error, setError] = useState(null);
   const [post, setPost] = useState({ userId: {}, createDate: "" });
   const [isCommenting, setCommenting] = useState(false);
+  const [commentAdded, setCommentAdded] = useState(0);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/posts/${match.params.postId}`)
@@ -17,7 +19,12 @@ export default function PostDetail({ match, token }) {
       .catch((error) => {
         setError(error.response.data.error);
       });
-  }, [isCommenting]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const updateComments = () => {
+    setCommentAdded(commentAdded + 1);
+  };
   return (
     <>
       <div className="m-3">
@@ -102,255 +109,19 @@ export default function PostDetail({ match, token }) {
                 setCommenting={setCommenting}
                 postId={match.params.postId}
                 token={token}
+                updateComments={updateComments}
               ></NewComment>
             </div>
           </>
         ) : null}
       </div>
       <hr />
-      {/* comment */}
       <div className="my-3 col-md-11 offset-md-1">
-        <table style={{ width: "100%" }}>
-          <tbody>
-            <tr>
-              <td
-                width="125"
-                rowSpan="3"
-                className="text-center"
-                style={{ verticalAlign: "top" }}
-              >
-                <img
-                  src={avatar}
-                  className="card-img-top"
-                  alt="default-avatar"
-                  style={{ height: "auto", width: "70%" }}
-                />
-                <div className="card-title font-weight-bold">
-                  {post.userId.name || null}
-                </div>
-              </td>
-              <td
-                className="px-2"
-                style={{
-                  background: "#979797",
-                  color: "#fff",
-                  height: "10px",
-                }}
-              >
-                {new Date(post.createDate.toString()).toLocaleString()}
-              </td>
-            </tr>
-            <tr>
-              <td className="px-2" style={{ verticalAlign: "top" }}>
-                {error ? (
-                  error
-                ) : (
-                  <div
-                    style={{ padding: "5px 0" }}
-                    dangerouslySetInnerHTML={{
-                      __html: post.description,
-                    }}
-                  ></div>
-                )}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table style={{ width: "100%" }}>
-          <tbody>
-            <tr>
-              <td
-                width="125"
-                rowSpan="3"
-                className="text-center"
-                style={{ verticalAlign: "top" }}
-              >
-                <img
-                  src={avatar}
-                  className="card-img-top px-3 pt-3"
-                  alt="default-avatar"
-                />
-                <div className="card-title font-weight-bold">
-                  {post.userId.name || null}
-                </div>
-              </td>
-              <td
-                className="px-2"
-                style={{
-                  background: "#979797",
-                  color: "#fff",
-                  height: "10px",
-                }}
-              >
-                {new Date(post.createDate.toString()).toLocaleString()}
-              </td>
-            </tr>
-            <tr>
-              <td className="px-2" style={{ verticalAlign: "top" }}>
-                {error ? (
-                  error
-                ) : (
-                  <div
-                    style={{ padding: "5px 0" }}
-                    dangerouslySetInnerHTML={{
-                      __html: post.description,
-                    }}
-                  ></div>
-                )}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table style={{ width: "100%" }}>
-          <tbody>
-            <tr>
-              <td
-                width="125"
-                rowSpan="3"
-                className="text-center"
-                style={{ verticalAlign: "top" }}
-              >
-                <img
-                  src={avatar}
-                  className="card-img-top px-3 pt-3"
-                  alt="default-avatar"
-                />
-                <div className="card-title font-weight-bold">
-                  {post.userId.name || null}
-                </div>
-              </td>
-              <td
-                className="px-2"
-                style={{
-                  background: "#979797",
-                  color: "#fff",
-                  height: "10px",
-                }}
-              >
-                {new Date(post.createDate.toString()).toLocaleString()}
-              </td>
-            </tr>
-            <tr>
-              <td className="px-2" style={{ verticalAlign: "top" }}>
-                {error ? (
-                  error
-                ) : (
-                  <div
-                    style={{ padding: "5px 0" }}
-                    dangerouslySetInnerHTML={{
-                      __html: post.description,
-                    }}
-                  ></div>
-                )}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table style={{ width: "100%" }}>
-          <tbody>
-            <tr>
-              <td
-                width="125"
-                rowSpan="3"
-                className="text-center"
-                style={{ verticalAlign: "top" }}
-              >
-                <img
-                  src={avatar}
-                  className="card-img-top px-3 pt-3"
-                  alt="default-avatar"
-                />
-                <div className="card-title font-weight-bold">
-                  {post.userId.name || null}
-                </div>
-              </td>
-              <td
-                className="px-2"
-                style={{
-                  background: "#979797",
-                  color: "#fff",
-                  height: "10px",
-                }}
-              >
-                {new Date(post.createDate.toString()).toLocaleString()}
-              </td>
-            </tr>
-            <tr>
-              <td className="px-2" style={{ verticalAlign: "top" }}>
-                {error ? (
-                  error
-                ) : (
-                  <div
-                    style={{ padding: "5px 0" }}
-                    dangerouslySetInnerHTML={{
-                      __html: post.description,
-                    }}
-                  ></div>
-                )}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table style={{ width: "100%" }}>
-          <tbody>
-            <tr>
-              <td
-                width="125"
-                rowSpan="3"
-                className="text-center"
-                style={{ verticalAlign: "top" }}
-              >
-                <img
-                  src={avatar}
-                  className="card-img-top px-3 pt-3"
-                  alt="default-avatar"
-                />
-                <div className="card-title font-weight-bold">
-                  {post.userId.name || null}
-                </div>
-              </td>
-              <td
-                className="px-2"
-                style={{
-                  background: "#979797",
-                  color: "#fff",
-                  height: "10px",
-                }}
-              >
-                {new Date(post.createDate.toString()).toLocaleString()}
-              </td>
-            </tr>
-            <tr>
-              <td className="px-2" style={{ verticalAlign: "top" }}>
-                {error ? (
-                  error
-                ) : (
-                  <div
-                    style={{ padding: "5px 0" }}
-                    dangerouslySetInnerHTML={{
-                      __html: post.description,
-                    }}
-                  ></div>
-                )}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <CommentList
+          postId={match.params.postId}
+          commentAdded={commentAdded}
+        ></CommentList>
       </div>
     </>
   );
 }
-
-const Button = styled.button`
-  color: #fff;
-  background: var(--dark-color);
-  &:hover,
-  &:active,
-  &:visited {
-    color: #fff;
-    background: var(--light-color);
-  }
-  &:disabled {
-    background: var(--light-color);
-  }
-`;
