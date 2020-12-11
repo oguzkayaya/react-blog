@@ -5,7 +5,7 @@ import NewComment from "./NewComment";
 import CommentList from "./CommentList";
 import Button from "./Button";
 
-export default function PostDetail({ match, token }) {
+export default function PostDetail({ match, token, location }) {
   const [error, setError] = useState(null);
   const [post, setPost] = useState({ userId: {}, createDate: "" });
   const [isCommenting, setCommenting] = useState(false);
@@ -110,6 +110,7 @@ export default function PostDetail({ match, token }) {
                 postId={match.params.postId}
                 token={token}
                 updateComments={updateComments}
+                thisUrl={match.url}
               ></NewComment>
             </div>
           </>
@@ -120,6 +121,8 @@ export default function PostDetail({ match, token }) {
         <CommentList
           postId={match.params.postId}
           commentAdded={commentAdded}
+          urlSearch={location.search}
+          thisUrl={match.url}
         ></CommentList>
       </div>
     </>

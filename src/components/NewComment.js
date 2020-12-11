@@ -1,18 +1,21 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Button from "./Button";
 import EditorContainer from "./EditorContainer";
 
-export default function Comment({
+export default function NewComment({
   token,
   postId,
   setCommenting,
   updateComments,
+  thisUrl,
 }) {
   const [description, setDescription] = useState(null);
   const [requesting, setRequesting] = useState(false);
   const [error, setError] = useState("");
   const [succes, setSucces] = useState("");
+  const history = useHistory();
   const saveComment = function (e) {
     e.preventDefault();
     setRequesting(true);
@@ -35,6 +38,7 @@ export default function Comment({
         setTimeout(() => {
           updateComments();
           setCommenting(false);
+          history.push(`${thisUrl}?page=last`);
         }, 1000);
       })
       .catch(function (error) {
