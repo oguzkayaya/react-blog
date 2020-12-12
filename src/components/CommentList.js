@@ -9,6 +9,7 @@ function CommentList({ postId, commentAdded, urlSearch, thisUrl }) {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
+  const [commentDeleted, setCommentDeleted] = useState(null);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/comments/post/${postId}${urlSearch}`)
@@ -22,7 +23,8 @@ function CommentList({ postId, commentAdded, urlSearch, thisUrl }) {
         setError(error.response.data.error);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commentAdded, urlSearch]);
+  }, [commentAdded, commentDeleted, urlSearch]);
+  const linkDisable = { pointerEvents: "none", color: "#979797" };
   return (
     <div>
       {error
@@ -30,16 +32,29 @@ function CommentList({ postId, commentAdded, urlSearch, thisUrl }) {
         : comments.map((comment) => (
             <Comment
               key={comment._id}
+              userId={comment.userId._id}
+              commentId={comment._id}
               userName={comment.userId.name}
               avatar={avatar}
               date={new Date(comment.createDate.toString()).toLocaleString()}
               description={comment.description}
+              setCommentDeleted={setCommentDeleted}
             ></Comment>
           ))}
-      <div className="text-center">
-        <Link to={`${thisUrl}?page=${parseInt(page) - 1}`}>Previous Page</Link>
-        Page: {page} / {lastPage}
-        <Link to={`${thisUrl}?page=${parseInt(page) + 1}`}>Next Page</Link>
+      <div className="text-center" style={{ fontWeight: "600" }}>
+        <Link
+          to={`${thisUrl}?page=${parseInt(page) - 1}`}
+          style={page <= 1 ? linkDisable : null}
+        >
+          Previous Page
+        </Link>{" "}
+        Page: {page} / {lastPage}{" "}
+        <Link
+          to={`${thisUrl}?page=${parseInt(page) + 1}`}
+          style={page >= lastPage ? linkDisable : null}
+        >
+          Next Page
+        </Link>
       </div>
     </div>
   );

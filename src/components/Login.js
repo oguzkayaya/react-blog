@@ -26,6 +26,9 @@ export default function Home({ setToken }) {
         setTimeout(() => {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem("userId", response.data.userId);
+          localStorage.setItem("userName", response.data.userName);
+          localStorage.setItem("userEmail", response.data.userEmail);
           history.push("/");
         }, 2000);
       })

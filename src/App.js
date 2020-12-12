@@ -16,7 +16,7 @@ function App() {
   const [token, setToken] = useState(storedJwt || null);
   const logout = function () {
     setToken(null);
-    localStorage.removeItem("token");
+    localStorage.clear();
   };
   return (
     <BrowserRouter>

@@ -1,6 +1,33 @@
+import axios from "axios";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
-function Comment({ userName, avatar, date, description }) {
+function Comment({
+  userName,
+  avatar,
+  date,
+  description,
+  userId,
+  commentId,
+  setCommentDeleted,
+}) {
+  const history = useHistory();
+  const deleteComment = () => {
+    if (window.confirm("Delete ?")) {
+      axios
+        .delete(`${process.env.REACT_APP_URL}/comments/${commentId}`, {
+          headers: {
+            "auth-token": localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          setCommentDeleted(response.data.deletedComment._id);
+        })
+        .catch((error) => {
+          alert(error.response.data.error);
+        });
+    }
+  };
   return (
     <div>
       <table style={{ width: "100%" }}>
@@ -29,6 +56,14 @@ function Comment({ userName, avatar, date, description }) {
               }}
             >
               {date}
+              {localStorage.getItem("userId") === userId ? (
+                <div
+                  className="float-right px-2"
+                  onClick={() => deleteComment()}
+                >
+                  Delete
+                </div>
+              ) : null}
             </td>
           </tr>
           <tr>

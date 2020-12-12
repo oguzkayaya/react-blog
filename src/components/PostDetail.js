@@ -4,12 +4,14 @@ import avatar from "../default-avatar.jpg";
 import NewComment from "./NewComment";
 import CommentList from "./CommentList";
 import Button from "./Button";
+import { useHistory } from "react-router-dom";
 
 export default function PostDetail({ match, token, location }) {
   const [error, setError] = useState(null);
   const [post, setPost] = useState({ userId: {}, createDate: "" });
   const [isCommenting, setCommenting] = useState(false);
   const [commentAdded, setCommentAdded] = useState(0);
+  const history = useHistory();
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/posts/${match.params.postId}`)
@@ -24,6 +26,22 @@ export default function PostDetail({ match, token, location }) {
 
   const updateComments = () => {
     setCommentAdded(commentAdded + 1);
+  };
+  const deletePost = (postId) => {
+    if (window.confirm("Delete ?")) {
+      axios
+        .delete(`${process.env.REACT_APP_URL}/posts/${postId}`, {
+          headers: {
+            "auth-token": localStorage.getItem("token"),
+          },
+        })
+        .then(() => {
+          history.push("/");
+        })
+        .catch((error) => {
+          alert(error.response.data.error);
+        });
+    }
   };
   return (
     <>
@@ -56,6 +74,14 @@ export default function PostDetail({ match, token, location }) {
                 }}
               >
                 {new Date(post.createDate.toString()).toLocaleString()}
+                {localStorage.getItem("userId") === post.userId._id ? (
+                  <div
+                    className="float-right px-2"
+                    onClick={() => deletePost(post._id)}
+                  >
+                    Delete
+                  </div>
+                ) : null}
               </td>
             </tr>
             <tr>
