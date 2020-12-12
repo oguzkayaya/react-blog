@@ -5,18 +5,38 @@ import NewComment from "./NewComment";
 import CommentList from "./CommentList";
 import Button from "./Button";
 import { useHistory } from "react-router-dom";
+import thumbUp from "../thumb_up.svg";
+import thumbDown from "../thumb_down.svg";
 
 export default function PostDetail({ match, token, location }) {
   const [error, setError] = useState(null);
-  const [post, setPost] = useState({ userId: {}, createDate: "" });
+  const [post, setPost] = useState({
+    userId: {},
+    createDate: "",
+    likes: [],
+    dislikes: [],
+  });
   const [isCommenting, setCommenting] = useState(false);
   const [commentAdded, setCommentAdded] = useState(0);
+  const [likeCount, setLikeCount] = useState(0);
+  const [dislikeCount, setDislikeCount] = useState(0);
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
+  const [likeRequesting, setLikeRequesting] = useState(false);
   const history = useHistory();
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/posts/${match.params.postId}`)
       .then((response) => {
         setPost(response.data.post);
+        setLikeCount(response.data.post.likes.length);
+        setDislikeCount(response.data.post.dislikes.length);
+        setLiked(
+          response.data.post.likes.includes(localStorage.getItem("userId"))
+        );
+        setDisliked(
+          response.data.post.dislikes.includes(localStorage.getItem("userId"))
+        );
       })
       .catch((error) => {
         setError(error.response.data.error);
@@ -42,6 +62,44 @@ export default function PostDetail({ match, token, location }) {
           alert(error.response.data.error);
         });
     }
+  };
+  const likePost = (postId) => {
+    setLikeRequesting(true);
+    axios
+      .get(`${process.env.REACT_APP_URL}/posts/like/${postId}`, {
+        headers: {
+          "auth-token": localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setLikeCount(response.data.likeCount);
+        setDislikeCount(response.data.dislikeCount);
+        setLiked(response.data.liked);
+        setDisliked(response.data.disliked);
+        setLikeRequesting(false);
+      })
+      .catch((error) => {
+        setLikeRequesting(false);
+      });
+  };
+  const dislikePost = (postId) => {
+    setLikeRequesting(true);
+    axios
+      .get(`${process.env.REACT_APP_URL}/posts/dislike/${postId}`, {
+        headers: {
+          "auth-token": localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setLikeCount(response.data.likeCount);
+        setDislikeCount(response.data.dislikeCount);
+        setLiked(response.data.liked);
+        setDisliked(response.data.disliked);
+        setLikeRequesting(false);
+      })
+      .catch((error) => {
+        setLikeRequesting(false);
+      });
   };
   return (
     <>
@@ -112,7 +170,42 @@ export default function PostDetail({ match, token, location }) {
             </tr>
             <tr>
               <td>
-                <div style={{ textAlign: "right" }}>
+                <span style={{ float: "left" }}>
+                  <button
+                    disabled={likeRequesting}
+                    style={liked ? { backgroundColor: "#a7d3fa" } : null}
+                    className="btn"
+                    onClick={() => {
+                      likePost(post._id);
+                    }}
+                  >
+                    <img
+                      src={thumbUp}
+                      alt="like"
+                      style={{ verticalAlign: "top" }}
+                    />{" "}
+                    {likeCount}
+                  </button>{" "}
+                  -{" "}
+                  <button
+                    disabled={likeRequesting}
+                    style={disliked ? { backgroundColor: "#a7d3fa" } : null}
+                    className="btn"
+                    onClick={() => {
+                      dislikePost(post._id);
+                    }}
+                  >
+                    <img
+                      src={thumbDown}
+                      alt="dislike"
+                      style={{
+                        verticalAlign: "top",
+                      }}
+                    />{" "}
+                    {dislikeCount}
+                  </button>
+                </span>
+                <span style={{ float: "right" }}>
                   <Button
                     className="btn"
                     style={{ width: "200px" }}
@@ -122,7 +215,7 @@ export default function PostDetail({ match, token, location }) {
                   >
                     Reply
                   </Button>
-                </div>
+                </span>
               </td>
             </tr>
           </tbody>

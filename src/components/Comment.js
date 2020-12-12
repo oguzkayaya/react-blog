@@ -1,6 +1,7 @@
 import axios from "axios";
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import thumbUp from "../thumb_up.svg";
+import thumbDown from "../thumb_down.svg";
 
 function Comment({
   userName,
@@ -10,8 +11,16 @@ function Comment({
   userId,
   commentId,
   setCommentDeleted,
+  likeCountInit,
+  dislikeCountInit,
+  likedInit,
+  dislikedInit,
 }) {
-  const history = useHistory();
+  const [likeCount, setLikeCount] = useState(likeCountInit);
+  const [dislikeCount, setDislikeCount] = useState(dislikeCountInit);
+  const [liked, setLiked] = useState(likedInit);
+  const [disliked, setDisliked] = useState(dislikedInit);
+  const [likeRequesting, setLikeRequesting] = useState(false);
   const deleteComment = () => {
     if (window.confirm("Delete ?")) {
       axios
@@ -27,6 +36,44 @@ function Comment({
           alert(error.response.data.error);
         });
     }
+  };
+  const likeComment = () => {
+    setLikeRequesting(true);
+    axios
+      .get(`${process.env.REACT_APP_URL}/comments/like/${commentId}`, {
+        headers: {
+          "auth-token": localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setLikeCount(response.data.likeCount);
+        setDislikeCount(response.data.dislikeCount);
+        setLiked(response.data.liked);
+        setDisliked(response.data.disliked);
+        setLikeRequesting(false);
+      })
+      .catch((error) => {
+        setLikeRequesting(false);
+      });
+  };
+  const dislikeComment = () => {
+    setLikeRequesting(true);
+    axios
+      .get(`${process.env.REACT_APP_URL}/comments/dislike/${commentId}`, {
+        headers: {
+          "auth-token": localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setLikeCount(response.data.likeCount);
+        setDislikeCount(response.data.dislikeCount);
+        setLiked(response.data.liked);
+        setDisliked(response.data.disliked);
+        setLikeRequesting(false);
+      })
+      .catch((error) => {
+        setLikeRequesting(false);
+      });
   };
   return (
     <div>
@@ -74,6 +121,45 @@ function Comment({
                   __html: description,
                 }}
               ></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style={{ float: "left" }}>
+                <button
+                  disabled={likeRequesting}
+                  style={liked ? { backgroundColor: "#a7d3fa" } : null}
+                  className="btn btn-sm"
+                  onClick={() => {
+                    likeComment();
+                  }}
+                >
+                  <img
+                    src={thumbUp}
+                    alt="like"
+                    style={{ verticalAlign: "top" }}
+                  />{" "}
+                  {likeCount}
+                </button>{" "}
+                -{" "}
+                <button
+                  disabled={likeRequesting}
+                  style={disliked ? { backgroundColor: "#a7d3fa" } : null}
+                  className="btn btn-sm"
+                  onClick={() => {
+                    dislikeComment();
+                  }}
+                >
+                  <img
+                    src={thumbDown}
+                    alt="dislike"
+                    style={{
+                      verticalAlign: "top",
+                    }}
+                  />{" "}
+                  {dislikeCount}
+                </button>
+              </span>
             </td>
           </tr>
         </tbody>

@@ -39,6 +39,18 @@ function CommentList({ postId, commentAdded, urlSearch, thisUrl }) {
               date={new Date(comment.createDate.toString()).toLocaleString()}
               description={comment.description}
               setCommentDeleted={setCommentDeleted}
+              likeCountInit={comment.likes.length}
+              dislikeCountInit={comment.dislikes.length}
+              likedInit={
+                comment.likes.includes(localStorage.getItem("userId"))
+                  ? true
+                  : false
+              }
+              dislikedInit={
+                comment.dislikes.includes(localStorage.getItem("userId"))
+                  ? true
+                  : false
+              }
             ></Comment>
           ))}
       <div className="text-center" style={{ fontWeight: "600" }}>
