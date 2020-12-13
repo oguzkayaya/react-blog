@@ -1,6 +1,7 @@
 :root {
-  --light-color: #838383;
-  --dark-color: #575757;
+  --light-color: #39435e;
+  --dark-color: #212736;
+  --second-color: #009cab;
 }
 
 * {
@@ -19,4 +20,46 @@ html {
 
 img {
   max-width: 100%;
+}
+
+.header {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--second-color);
+}
+
+.linkDisabled {
+  pointer-events: none;
+  color: #979797 !important;
+}
+
+.link {
+  font-weight: 600;
+  display: inline-block;
+  list-style: none;
+  color: var(--second-color);
+}
+
+.link:hover,
+.link:active,
+.link:visited {
+  cursor: pointer;
+}
+
+.tdHeader {
+  /* background: var(--second-color); */
+  background: #009dabb2 !important;
+  /* background: #212736d0; */
+  color: #fff;
+  height: 10px;
+}
+
+.deleteLink:hover {
+  background-color: var(--light-color);
+  cursor: pointer;
+}
+
+.liked {
+  /* background-color: var(--second-color) !important; */
+  background-color: #009dab5b !important;
 }

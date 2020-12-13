@@ -51,14 +51,18 @@ export default function NewComment({
   };
   return (
     <div>
-      Your Comment
+      <span className="header">Your Comment</span>
       <EditorContainer setDescriptionMarkup={setDescription}></EditorContainer>
       <div>
-        <Button className="btn m-2" disabled={requesting} onClick={saveComment}>
+        <Button
+          className="btn col-md-2 mr-2 mt-1"
+          disabled={requesting}
+          onClick={saveComment}
+        >
           Save
         </Button>
         <Button
-          className="btn m-2"
+          className="btn col-md-2 ml-2 mt-1"
           disabled={requesting}
           onClick={() => setCommenting(false)}
         >

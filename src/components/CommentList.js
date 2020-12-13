@@ -24,12 +24,13 @@ function CommentList({ postId, commentAdded, urlSearch, thisUrl }) {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [commentAdded, commentDeleted, urlSearch]);
-  const linkDisable = { pointerEvents: "none", color: "#979797" };
   return (
     <div>
-      {error
-        ? error
-        : comments.map((comment) => (
+      {error ? (
+        error
+      ) : (
+        <div>
+          {comments.map((comment) => (
             <Comment
               key={comment._id}
               userId={comment.userId._id}
@@ -53,17 +54,19 @@ function CommentList({ postId, commentAdded, urlSearch, thisUrl }) {
               }
             ></Comment>
           ))}
-      <div className="text-center" style={{ fontWeight: "600" }}>
+        </div>
+      )}
+      <div className="text-center">
         <Link
           to={`${thisUrl}?page=${parseInt(page) - 1}`}
-          style={page <= 1 ? linkDisable : null}
+          className={page <= 1 ? "link linkDisabled" : "link"}
         >
           Previous Page
         </Link>{" "}
         Page: {page} / {lastPage}{" "}
         <Link
           to={`${thisUrl}?page=${parseInt(page) + 1}`}
-          style={page >= lastPage ? linkDisable : null}
+          className={page >= lastPage ? "link linkDisabled" : "link"}
         >
           Next Page
         </Link>

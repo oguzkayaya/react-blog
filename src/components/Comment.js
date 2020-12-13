@@ -94,18 +94,11 @@ function Comment({
               />
               <div className="card-title font-weight-bold">{userName}</div>
             </td>
-            <td
-              className="px-2"
-              style={{
-                background: "#979797",
-                color: "#fff",
-                height: "10px",
-              }}
-            >
+            <td className="px-2 tdHeader">
               {date}
               {localStorage.getItem("userId") === userId ? (
                 <div
-                  className="float-right px-2"
+                  className="float-right px-2 deleteLink"
                   onClick={() => deleteComment()}
                 >
                   Delete
@@ -127,9 +120,9 @@ function Comment({
             <td>
               <span style={{ float: "left" }}>
                 <button
-                  disabled={likeRequesting}
-                  style={liked ? { backgroundColor: "#a7d3fa" } : null}
-                  className="btn btn-sm"
+                  disabled={likeRequesting || !localStorage.getItem("token")}
+                  className={liked ? "liked btn" : "btn"}
+                  style={{ padding: "1px" }}
                   onClick={() => {
                     likeComment();
                   }}
@@ -143,9 +136,9 @@ function Comment({
                 </button>{" "}
                 -{" "}
                 <button
-                  disabled={likeRequesting}
-                  style={disliked ? { backgroundColor: "#a7d3fa" } : null}
-                  className="btn btn-sm"
+                  disabled={likeRequesting || !localStorage.getItem("token")}
+                  className={disliked ? "liked btn" : "btn"}
+                  style={{ padding: "1px" }}
                   onClick={() => {
                     dislikeComment();
                   }}
@@ -164,6 +157,7 @@ function Comment({
           </tr>
         </tbody>
       </table>
+      <hr></hr>
     </div>
   );
 }

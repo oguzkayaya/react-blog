@@ -17,24 +17,15 @@ export default function AllPosts({ token }) {
       <div className="row">
         <div className="col-md-8 offset-md-1">
           <div className="col-md-12">
-            <span
-              style={{
-                fontSize: "32px",
-                fontWeight: "600",
-              }}
-            >
-              All Posts{" "}
-            </span>
+            <span className="header">All Posts </span>
             <span>
               {token ? (
                 <Link
                   to="/posts/new"
+                  className="link"
                   style={{
                     padding: "15px",
-                    fontWeight: "600",
                     float: "right",
-                    display: "inline-block",
-                    listStyle: "none",
                   }}
                 >
                   <li>New Post</li>

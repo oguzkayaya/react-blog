@@ -120,21 +120,14 @@ export default function PostDetail({ match, token, location }) {
                   style={{ height: "auto", width: "70%" }}
                 />
                 <div className="card-title font-weight-bold">
-                  {post.userId.name || null}
+                  {post.userId.name}
                 </div>
               </td>
-              <td
-                className="px-2"
-                style={{
-                  background: "#979797",
-                  color: "#fff",
-                  height: "10px",
-                }}
-              >
+              <td className="px-2 tdHeader">
                 {new Date(post.createDate.toString()).toLocaleString()}
                 {localStorage.getItem("userId") === post.userId._id ? (
                   <div
-                    className="float-right px-2"
+                    className="float-right px-2 deleteLink"
                     onClick={() => deletePost(post._id)}
                   >
                     Delete
@@ -172,9 +165,9 @@ export default function PostDetail({ match, token, location }) {
               <td>
                 <span style={{ float: "left" }}>
                   <button
-                    disabled={likeRequesting}
-                    style={liked ? { backgroundColor: "#a7d3fa" } : null}
-                    className="btn"
+                    disabled={likeRequesting || !localStorage.getItem("token")}
+                    className={liked ? "liked btn" : "btn"}
+                    style={{ padding: "5px" }}
                     onClick={() => {
                       likePost(post._id);
                     }}
@@ -188,9 +181,9 @@ export default function PostDetail({ match, token, location }) {
                   </button>{" "}
                   -{" "}
                   <button
-                    disabled={likeRequesting}
-                    style={disliked ? { backgroundColor: "#a7d3fa" } : null}
-                    className="btn"
+                    disabled={likeRequesting || !localStorage.getItem("token")}
+                    className={disliked ? "liked btn" : "btn"}
+                    style={{ padding: "5px" }}
                     onClick={() => {
                       dislikePost(post._id);
                     }}
@@ -207,6 +200,7 @@ export default function PostDetail({ match, token, location }) {
                 </span>
                 <span style={{ float: "right" }}>
                   <Button
+                    disabled={!localStorage.getItem("token")}
                     className="btn"
                     style={{ width: "200px" }}
                     onClick={() => {
@@ -236,7 +230,12 @@ export default function PostDetail({ match, token, location }) {
         ) : null}
       </div>
       <hr />
-      <div className="my-3 col-md-11 offset-md-1">
+
+      <div className="ml-5">
+        <div className="header mb-3">Comments</div>
+      </div>
+
+      <div className=" col-md-11 offset-md-1">
         <CommentList
           postId={match.params.postId}
           commentAdded={commentAdded}

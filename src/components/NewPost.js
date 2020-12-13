@@ -54,12 +54,7 @@ export default function NewPost({ token }) {
   return (
     <div>
       <header className="card-header">
-        <div
-          className="card-title"
-          style={{ fontSize: "32px", margin: "0", padding: "0" }}
-        >
-          New Post
-        </div>
+        <div className="card-title header m-0 p-0">New Post</div>
       </header>
       <article className="card-body">
         <form>
@@ -96,11 +91,11 @@ export default function NewPost({ token }) {
           <div className="form-group">
             <Button
               type="submit"
-              className="btn"
+              className="btn col-md-2"
               onClick={createPost}
               disabled={requesting}
             >
-              Create
+              Save
             </Button>
           </div>
         </form>

@@ -43,12 +43,13 @@ export default Nav;
 const NavbarContainer = styled.div`
   background: var(--dark-color);
   .nav-link {
-    color: #fff !important;
+    color: #fff;
     &:hover {
       background: var(--light-color);
+      color: #fff;
     }
   }
   .navbar-brand {
-    color: #fff !important;
+    color: #fff;
   }
 `;

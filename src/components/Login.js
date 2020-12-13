@@ -47,12 +47,7 @@ export default function Home({ setToken }) {
           <div className="col-md-6">
             <div className="card">
               <header className="card-header">
-                <div
-                  className="card-title mt-2"
-                  style={{ fontSize: "32px", fontWeight: "600" }}
-                >
-                  Sign In
-                </div>
+                <div className="card-title mt-2 header">Sign In</div>
               </header>
               <article className="card-body">
                 <form>

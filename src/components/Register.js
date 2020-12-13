@@ -44,12 +44,7 @@ export default function Home() {
           <div className="col-md-6">
             <div className="card">
               <header className="card-header">
-                <div
-                  className="card-title mt-2"
-                  style={{ fontSize: "32px", fontWeight: "600" }}
-                >
-                  Sign up
-                </div>
+                <div className="card-title mt-2 header">Sign up</div>
               </header>
               <article className="card-body">
                 <form>
@@ -105,7 +100,10 @@ export default function Home() {
                 <div style={{ color: "red" }}>{error}</div>
                 <div style={{ color: "green" }}>{succes}</div>
                 <div>
-                  Have an account? <Link to="/login">Log in</Link>
+                  Have an account?{" "}
+                  <Link to="/login" className="link">
+                    Log in
+                  </Link>
                 </div>
               </article>
             </div>

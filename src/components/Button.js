@@ -10,6 +10,7 @@ const Button = styled.button`
     background: var(--light-color);
   }
   &:disabled {
+    color: #fff;
     background: var(--light-color);
   }
 `;
