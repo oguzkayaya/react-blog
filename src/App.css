@@ -47,18 +47,27 @@ img {
 }
 
 .tdHeader {
-  background: var(--second-color);
-  /* background: #212736d0; */
+  /* background: var(--second-color); */
+  background: #999999;
   color: #fff;
   height: 10px;
 }
 
+.deleteLink {
+  border: 1px solid #c74c00;
+  border-radius: 4px;
+  color: #c74c00;
+  background-color: #fff;
+}
+
 .deleteLink:hover {
-  background-color: var(--light-color);
+  background-color: #f9ede5;
+  color: #c74c00;
   cursor: pointer;
 }
 
 .liked {
   /* background-color: var(--second-color) !important; */
-  background-color: #009dab5b !important;
+  border: 1px solid #009cab !important;
+  background-color: #c3e6e9 !important;
 }

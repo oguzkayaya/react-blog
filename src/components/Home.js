@@ -64,7 +64,7 @@ export default function Home({ token }) {
           )}
         </div>
         {/* replace with sidebar component */}
-        <div
+        {/* <div
           className="col-md-3 p-3"
           style={{ background: "#979797", color: "#fff" }}
         >
@@ -75,7 +75,7 @@ export default function Home({ token }) {
           CATEGORIES
           <br />
           ARCHIVE, YEARS, MONTHS
-        </div>
+        </div> */}
       </div>
     </div>
   );
