@@ -47,8 +47,7 @@ img {
 }
 
 .tdHeader {
-  /* background: var(--second-color); */
-  background: #009dabb2 !important;
+  background: var(--second-color);
   /* background: #212736d0; */
   color: #fff;
   height: 10px;
